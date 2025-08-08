@@ -1,0 +1,15 @@
+{
+  "name": "first-step",
+  "version": "1.0.0",
+  "description": "my first backend practice",
+  "license": "ISC",
+  "author": "Mahyudeen Shahid",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
