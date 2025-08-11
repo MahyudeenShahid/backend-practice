@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body {
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .edit-form-container {
+            background: rgba(255,255,255,0.95);
+            padding: 2.5rem 2rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 8px 32px rgba(50,50,100,0.18);
+            max-width: 400px;
+            width: 100%;
+        }
+        .edit-form-container h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #6e8efb;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .edit-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #444;
+        }
+        .edit-form input,
+        .edit-form textarea {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 1.2rem;
+            border: 1px solid #a777e3;
+            border-radius: 0.7rem;
+            font-size: 1rem;
+            background: #f7f7fa;
+            transition: border-color 0.2s;
+        }
+        .edit-form input:focus,
+        .edit-form textarea:focus {
+            border-color: #6e8efb;
+            outline: none;
+        }
+        .edit-form button {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(90deg, #6e8efb 60%, #a777e3 100%);
+            color: #fff;
+            border: none;
+            border-radius: 0.7rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(110,142,251,0.15);
+            transition: background 0.2s;
+        }
+        .edit-form button:hover {
+            background: linear-gradient(90deg, #a777e3 60%, #6e8efb 100%);
+        }
+    </style>
+    <div class="edit-form-container">
+        <h2>Edit User</h2>
+        <form class="edit-form" method="POST" action="/posts/<%= user.id %>?_method=PATCH">
+            <label for="id">ID</label>
+            <input type="text" id="id" name="id" value="<%= user.id %>" readonly>
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" value="<%= user.username %>" required>
+
+            <label for="content">Content</label>
+            <textarea id="content" name="content" rows="4" required><%= user.content %></textarea>
+
+            <button type="submit">Save Changes</button>
+        </form>
+    </div>
+</body>
+    
+</body>
+</html>

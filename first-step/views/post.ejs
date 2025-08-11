@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
+            margin: 0;
+            padding: 0;
+        }
+        .post-container {
+            max-width: 600px;
+            margin: 60px auto;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(60,72,88,0.12);
+            padding: 40px 32px;
+        }
+        h1 {
+            font-size: 0.5rem;
+            color: #6366f1;
+            margin-bottom: 0.5em;
+        }
+        h2 {
+            font-size: 1.2rem;
+            color: #334155;
+            margin-bottom: 1em;
+        }
+        p {
+            font-size: 1.1rem;
+            color: #475569;
+            margin-bottom: 2em;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 24px;
+            background: #6366f1;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+        a:hover {
+            background: #4338ca;
+        }
+    </style>
+    <div class="post-container">
+        <h1><%= user.id %></h1>
+        <h2><strong>Author:</strong> @<%= user.username %></h2>
+        <p><%= user.content %></p>
+        <a href="/posts">Back to Posts</a>
+    </div>
+</body>
+</html>

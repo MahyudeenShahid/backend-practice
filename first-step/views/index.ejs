@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="header-animate">
+        <h1>Hello World!</h1>
+        <p>Welcome to my first Express app!</p>
+        <p class="dev-animate">Developed by <span class="dev-name">Mahyudeen Shahid</span></p>
+        
+        <h2>Explore the posts here</h2>
+        <a class="center" href="http://localhost:3000/posts/new">
+            <button class="btn-animate">
+                Create New Post
+            </button>
+        </a>
+    </div>
+    
+    <ul>
+        <% users.forEach(user => { %>
+            <li>
+                <div style="background: linear-gradient(135deg, #6dd5ed 0%, #2193b0 100%); border-radius: 12px; padding: 20px; max-width: 320px; box-shadow: 0 4px 16px rgba(33,147,176,0.15); margin-bottom: 16px; color: #fff; border: none;">
+                    <p style="font-size:1em; margin-bottom:8px;">🆔 ID: <%= user.id %></p>
+                    <h2 style="margin-top:0; font-size:1.4em; font-weight:600; letter-spacing:1px;">👤 <%= user.username %></h2>
+                    <p style="font-size:1.1em; margin:8px 0 0 0;">💬 <%= user.content %></p>
+                    <div style="display: flex; gap: 12px; margin-top: 16px;"></div>
+                        <a href="/posts/<%=user.id%>" style="text-decoration: none;">
+                            <button style="background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); color: #fff; border: none; border-radius: 6px; padding: 8px 18px; font-size: 1em; font-weight: 500; box-shadow: 0 2px 8px rgba(67,206,162,0.15); cursor: pointer; transition: background 0.3s;">
+                                👁️ See Details
+                            </button>
+                        </a>
+                        <a href="/posts/<%= user.id %>/edit" style="text-decoration: none;">
+                            <button style="background: linear-gradient(135deg, #ffb347 0%, #ffcc33 100%); color: #fff; border: none; border-radius: 6px; padding: 8px 18px; font-size: 1em; font-weight: 500; box-shadow: 0 2px 8px rgba(255,179,71,0.15); cursor: pointer; transition: background 0.3s;">
+                                ✏️ Edit Post
+                            </button>
+                        </a>
+                        <form action="/posts/<%=user.id%>?_method=DELETE" method="POST" style="display:inline;">
+                            <button type="submit" style="background: linear-gradient(135deg, #ff6a6a 0%, #ff8e53 100%); color: #fff; border: none; border-radius: 6px; padding: 8px 18px; font-size: 1em; font-weight: 500; box-shadow: 0 2px 8px rgba(255,106,106,0.15); cursor: pointer; transition: background 0.3s;">
+                                🗑️ Delete Post
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </li>
+        <% }); %>
+    </ul>
+
+</body>
+</html>
