@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 32px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 24px rgba(76, 81, 255, 0.15);
+            padding: 32px 24px;
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .user-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 16px 32px rgba(76, 81, 255, 0.25);
+        }
+
+        .user-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 16px rgba(76, 81, 255, 0.12);
+        }
+
+        .user-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #4c51ff;
+            margin-bottom: 8px;
+        }
+
+        .user-email {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 16px;
+        }
+
+        .user-info {
+            font-size: 0.95rem;
+            color: #888;
+        }
+
+        .user-btn {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px rgba(76, 81, 255, 0.10);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .edit-btn {
+            background: linear-gradient(90deg, #4c51ff 0%, #667eea 100%);
+            color: #fff;
+        }
+
+        .edit-btn:hover {
+            background: linear-gradient(90deg, #667eea 0%, #4c51ff 100%);
+            box-shadow: 0 4px 16px rgba(76, 81, 255, 0.18);
+            transform: translateY(-2px) scale(1.05);
+        }
+
+        .delete-btn {
+            background: linear-gradient(90deg, #ff4c4c 0%, #ff7676 100%);
+            color: #fff;
+        }
+
+        .delete-btn:hover {
+            background: linear-gradient(90deg, #ff7676 0%, #ff4c4c 100%);
+            box-shadow: 0 4px 16px rgba(255, 76, 76, 0.18);
+            transform: translateY(-2px) scale(1.05);
+        }
+        .top{
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-inline: 32px;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="top">
+    <h1 style="text-align: center; color: #fff; margin-bottom: 24px;">Users List</h1>
+    <div style="text-align: center; margin-bottom: 32px;">
+        <a href="/users/new">
+            <button class="user-btn delete-btn" style="font-size: 1.1rem;">
+                Add User
+            </button>
+        </a>
+    </div>
+    </div>
+    <div class="cards-container">
+        <% users.forEach(function(user) { %>
+            <div class="user-card">
+                <img class="user-avatar" src="<%= user.avatar || 'https://i.pravatar.cc/80?u=' + user.email %>"
+                    alt="Avatar">
+                <div class="user-name">
+                    <%= user.username %>
+                </div>
+                <div class="user-email">
+                    <%= user.email %>
+                </div>
+                <div class="user-info">ID: <%= user.id %>
+                </div>
+                <div style="margin-top: 18px; display: flex; gap: 12px;">
+                    <button class="user-btn edit-btn" onclick="window.location.href='/users/<%= user.id %>/edit'">
+                        Edit
+                    </button>
+                    <form action="/users/<%= user.id %>?_method=DELETE" method="POST">
+                        <button class="user-btn delete-btn" type="submit">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+            <% }); %>
+    </div>
+</body>
+
+</html>

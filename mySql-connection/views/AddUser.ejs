@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add User</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #74ebd5 0%, #ACB6E5 100%);
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .form-container {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
+            max-width: 400px;
+            width: 100%;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #34495e;
+            letter-spacing: 1px;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 700;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #b2bec3;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        input:focus {
+            border-color: #74ebd5;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(90deg, #74ebd5 0%, #ACB6E5 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #ACB6E5 0%, #74ebd5 100%);
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Add New User</h2>
+        <form action="/users" method="POST">
+            <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required autocomplete="off">
+            </div>
+            <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="off">
+            </div>
+            <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required autocomplete="off">
+            </div>
+            <div class="form-group">
+            <label for="avatar">Avatar URL</label>
+            <input type="text" id="avatar" name="avatar" placeholder="https://example.com/avatar.jpg" autocomplete="off">
+            </div>
+            <button type="submit">Add User</button>
+        </form>
+    </div>
+</body>
+</html>
