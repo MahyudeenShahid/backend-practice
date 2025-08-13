@@ -10,7 +10,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             font-family: 'Montserrat', sans-serif;
             margin: 0;
-            padding: 40px;
+            padding: 20px;
         }
 
         .cards-container {
@@ -99,27 +99,53 @@
             transform: translateY(-2px) scale(1.05);
         }
         .top{
-            margin-bottom: 32px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            margin-top: 20px;
+            justify-content: space-around;
+            /* margin-top: 10px; */
             margin-inline: 32px;
         }
+        .new-btn {
+    background: linear-gradient(90deg, #28a745 0%, #43d17f 100%);
+    color: #fff;
+}
+
+.new-btn:hover {
+    background: linear-gradient(90deg, #43d17f 0%, #28a745 100%);
+    box-shadow: 0 4px 16px rgba(40, 167, 69, 0.18);
+    transform: translateY(-2px) scale(1.05);
+}
+
     </style>
-    <title>Document</title>
+    <title>Users</title>
 </head>
 
 <body>
     <div class="top">
     <h1 style="text-align: center; color: #fff; margin-bottom: 24px;">Users List</h1>
+    
     <div style="text-align: center; margin-bottom: 32px;">
+        <h2 style="color: #fff;">Total Users: <span style="color: #ffeb3b;"><%= count %></span></h2>
+        </div>
+    </div> 
+    <div class="top">
+        <div style="text-align: center; margin-bottom: 32px;">
         <a href="/users/new">
-            <button class="user-btn delete-btn" style="font-size: 1.1rem;">
+            <button class="user-btn new-btn" style="font-size: 1.1rem;">
                 Add User
             </button>
         </a>
     </div>
+    
+    <form action="/users/Random" method="POST">
+        <div style="text-align: center; margin-bottom: 32px;">
+            <button type="submit" class="user-btn delete-btn">
+                Add Random
+            </button>
+        </div>
+    </form>
+
     </div>
     <div class="cards-container">
         <% users.forEach(function(user) { %>
@@ -138,11 +164,11 @@
                     <button class="user-btn edit-btn" onclick="window.location.href='/users/<%= user.id %>/edit'">
                         Edit
                     </button>
-                    <form action="/users/<%= user.id %>?_method=DELETE" method="POST">
-                        <button class="user-btn delete-btn" type="submit">
-                            Delete
+
+                    <button class="user-btn delete-btn" onclick="window.location.href='/users/<%= user.id %>/delete'" type="submit">
+                        Delete
                         </button>
-                    </form>
+                    
                 </div>
 
             </div>

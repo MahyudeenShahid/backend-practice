@@ -18,7 +18,8 @@ const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   database: 'user',
-  password: 'Ju@tt1122'
+  password: 'Ju@tt1122',
+  multipleStatements: true,
 });
 
 const PORT =8080;
@@ -77,6 +78,7 @@ const sqlconnection = (query, callback, res) => {
             return res.status(500).send("Internal Server Error");
         }
         console.log("Query executed successfully");
+        // console.log("Results:", results);
         callback(results);
     });
 };
@@ -94,9 +96,33 @@ app.get('/', (req, res) => {
 
 
 app.get('/users', (req, res) => {
-    let q = "SELECT * FROM users";
+    let q = `
+        SELECT * FROM users;
+        SELECT COUNT(*) AS count FROM users;
+    `;
+
     const response = (results) => {
-        res.render('users', { users: results });
+        const users = results[0];      // First query result
+        const count = results[1][0].count; // Second query result
+        res.render('users', { users, count });
+    };
+
+    sqlconnection(q, response, res);
+});
+
+app.post('/users/Random', (req, res) => {
+    const randomUser = {
+        id: uuidv4(),
+        username: faker.internet.username(),
+        email: faker.internet.email(),
+        avatar: faker.image.avatar(),
+        password: faker.internet.password(),
+    };
+
+    let q = `INSERT INTO users (id, username, email, avatar, password) VALUES ('${randomUser.id}', '${randomUser.username}', '${randomUser.email}', '${randomUser.avatar}', '${randomUser.password}')`;
+
+    const response = (results) => {
+        res.redirect('/users');
     };
 
     sqlconnection(q, response, res);
@@ -107,7 +133,7 @@ app.get('/users/:id/edit',(req,res) => {
     let q = `SELECT * FROM users WHERE id = '${userId}'`;
     const response = (results) => {
         if (results.length > 0) {
-            console.dir(results[0])
+            console.log("User found:", results[0]);
             res.render('edit', { user: results[0] });
         } else {
             res.status(404).send("User not found");
@@ -118,13 +144,33 @@ app.get('/users/:id/edit',(req,res) => {
 });
 
 app.patch('/users/:id', (req, res) => {
-    const userId = req.params.id;
-    const { username, email, avatar } = req.body;
 
-    let q = `UPDATE users SET username = '${username}', email = '${email}', avatar = '${avatar}' WHERE id = '${userId}'`;
+    const userId = req.params.id;
+    const { username, email, avatar, passwords } = req.body;
+
+    let q = `UPDATE users SET username = '${username}', email = '${email}', avatar = '${avatar}' WHERE (id = '${userId}') and (password = '${passwords}')`;
 
     const response = (results) => {
-        res.redirect('/users');
+        if (results.affectedRows > 0) {
+            res.redirect('/users');
+        } else {
+            res.status(403).send("you enter wrong password");
+        }
+    };
+
+    sqlconnection(q, response, res);
+});
+
+app.get('/users/:id/delete', (req, res) => {
+    const userId = req.params.id;
+    let q = `SELECT * FROM users WHERE id = '${userId}'`;
+    const response = (results) => {
+        if (results.length > 0) {
+            console.dir(results[0]);
+            res.render('delete', { user: results[0] });
+        } else {
+            res.status(404).send("User not found");
+        }
     };
 
     sqlconnection(q, response, res);
@@ -132,10 +178,17 @@ app.patch('/users/:id', (req, res) => {
 
 app.delete('/users/:id', (req, res) => {
     const userId = req.params.id;
-    let q = `DELETE FROM users WHERE id = '${userId}'`;
+    const {passwords} = req.body;
+    let q = `DELETE FROM users WHERE id = '${userId}' AND password = '${passwords}'`;
 
     const response = (results) => {
-        res.redirect('/users');
+        if (results.affectedRows > 0) {
+           res.redirect('/users');
+        } else {
+            console.log("No user found with the given ID or password is incorrect");
+            return res.status(403).send("you enter wrong password");
+        }
+        
     };
 
     sqlconnection(q, response, res);
@@ -148,7 +201,7 @@ app.get('/users/new', (req, res) => {
 app.post('/users', (req, res) => {
     const { username, email, avatar, password } = req.body;
 
-    let q = `INSERT INTO users (username, email, avatar, password) VALUES ('${username}', '${email}', '${avatar}', '${password}')`;
+    let q = `INSERT INTO users (id, username, email, avatar, password) VALUES ('${uuidv4()}', '${username}', '${email}', '${avatar}', '${password}')`;
 
     const response = (results) => {
         res.redirect('/users');
