@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Chat</title>
+    
+    <style>
+        body {
+            background: linear-gradient(135deg, #f8ffae 0%, #43c6ac 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 500px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(60, 60, 60, 0.15);
+            padding: 32px 24px;
+        }
+        h1 {
+            text-align: center;
+            color: #2d6a4f;
+            margin-bottom: 32px;
+            font-size: 2.5rem;
+            letter-spacing: 2px;
+        }
+        form div {
+            margin-bottom: 18px;
+        }
+        label {
+            font-weight: 600;
+            margin-left: 40px;
+            display: block;
+            margin-bottom: 6px;
+            color: #40916c;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        input[type="text"],
+        textarea {
+            width: 80%;
+            display: block;
+            margin-inline: auto;
+            padding: 10px 12px;
+            border: 1px solid #b7e4c7;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #e9f5db;
+            transition: border-color 0.2s;
+        }
+        input[type="text"]:focus,
+        textarea:focus {
+            border-color: #43c6ac;
+            outline: none;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+        button[type="submit"] {
+            width: 50%;
+            display: block;
+            margin-inline:  auto;
+            padding: 12px;
+            background: linear-gradient(90deg, #43c6ac 60%, #f8ffae 100%);
+            color: #2d6a4f;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(67, 198, 172, 0.08);
+            transition: background 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(90deg, #f8ffae 60%, #43c6ac 100%);
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #40916c;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        a:hover {
+            color: #2d6a4f;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Edit Chat</h1>
+        <form action="/chats/<%= chat._id %>?_method=PUT" method="POST">
+            <div>
+                <label for="from">Who are you?</label>
+                <input type="text" id="from" name="from" value="<%= chat.from %>" required>
+            </div>
+            <div>
+                <label for="to">Who do you want to send the chat to?</label>
+                <input type="text" id="to" name="to" value="<%= chat.to %>" required>
+            </div>
+            <div>
+                <label for="message">Message</label>
+                <textarea id="message" name="message" required><%= chat.message %></textarea>
+            </div>
+            <button type="submit">Update Chat</button>
+        </form>
+        <a href="/chats">Back to Chats</a>
+    </div>
+</body>
+
+</html>
+</body>
+</html>
